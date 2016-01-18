@@ -40,10 +40,35 @@ namespace Anilinkz_Player.Classes.Sources
 
         public void CheckTime()
         {
-            //These are strings containing the times from the video player 
-            var currentTimeDiv = player.Divs(By.ClassName("vjs-current-time-display"))[0];
-            var endTimeDiv = player.Divs(By.ClassName("vjs-duration-display"))[0];
+            while (true)
+            {
+                //These are strings containing the times from the video player 
+                string currentTimeDiv = player.Divs(By.ClassName("vjs-current-time-display"))[0].Text;
+                string endTimeDiv = player.Divs(By.ClassName("vjs-duration-display"))[0].Text;
+                if (timeCheck(currentTimeDiv, endTimeDiv))
+                    break;
+                System.Threading.Thread.Sleep(1000);
+            }
 
+        }
+
+        public bool timeCheck(string start, string end)
+        {
+            string startFormated = start.Remove(0, 13);
+            startFormated = startFormated.Remove(1,1);
+
+            string endFormated = end.Remove(0, 14);
+            endFormated = endFormated.Remove(1, 1);
+
+            int startFinalForm = Convert.ToInt32(startFormated);
+            int endFinalForm = Convert.ToInt32(endFormated);
+
+            //checks for video add time
+            if (endFinalForm < 300)
+                return false;
+            if (startFinalForm == endFinalForm)
+                return true;
+            return false;
         }
     }
 }
