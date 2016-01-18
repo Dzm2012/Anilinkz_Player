@@ -94,7 +94,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Classes\BrowserBehavior.cs" />
     <Compile Include="Classes\Page.cs" />
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Sources\ArkVid.cs" />
@@ -137,7 +136,6 @@
       <Link>chromedriver.exe</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="plugins\npswf32_11_8_800_94.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
