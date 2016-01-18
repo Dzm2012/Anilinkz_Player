@@ -12,7 +12,12 @@ namespace Anilinkz_Player
         public MainWindow()
         {
             InitializeComponent();
-            Classes.Page.GetData();
+            
+        }
+
+        private void BTNstart_Click(object sender, RoutedEventArgs e)
+        {
+            Classes.Page.GetData(10);
         }
     }
 }

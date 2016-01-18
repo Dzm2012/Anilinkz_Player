@@ -7,7 +7,9 @@
         xmlns:awe="http://schemas.awesomium.com/winfx" x:Class="Anilinkz_Player.MainWindow"
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
-    <Grid>
-        <awe:WebControl x:Name="AWEWB"/>
+    <Grid Background="#FF6A5353">
+        <Image x:Name="image" HorizontalAlignment="Left" Height="94" Margin="92,10,0,0" VerticalAlignment="Top" Width="313" Source="Resources/aniv5logo.png"/>
+        <CheckBox x:Name="CBAutoPlay" Content=" Auto Play Episodes" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="128"/>
+        <Button x:Name="BTNstart" Content="Start" HorizontalAlignment="Left" Margin="432,293,0,0" VerticalAlignment="Top" Width="75" Click="BTNstart_Click"/>
     </Grid>
 </Window>

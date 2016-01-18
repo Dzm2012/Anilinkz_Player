@@ -55,10 +55,10 @@ namespace Anilinkz_Player.Classes.Sources
         public bool timeCheck(string start, string end)
         {
             string startFormated = start.Remove(0, 13);
-            startFormated = startFormated.Remove(1,1);
+            startFormated = startFormated.Replace(":", "");
 
             string endFormated = end.Remove(0, 14);
-            endFormated = endFormated.Remove(1, 1);
+            endFormated = endFormated.Replace(":", "");
 
             int startFinalForm = Convert.ToInt32(startFormated);
             int endFinalForm = Convert.ToInt32(endFormated);
