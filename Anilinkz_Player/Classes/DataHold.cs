@@ -12,6 +12,6 @@ namespace Anilinkz_Player.Classes
     static class DataHold
     {
         static public Queue<string> VideoList = new Queue<string>();
-
+        static public Dictionary<string,string> AnimeList = new Dictionary<string, string>();
     }
 }

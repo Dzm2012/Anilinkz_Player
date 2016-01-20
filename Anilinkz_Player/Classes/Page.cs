@@ -14,6 +14,8 @@ using OpenQA.Selenium;
 using System.Threading;
 using System.Drawing;
 using Awesomium.Core;
+using System.Xml.Linq;
+using System.IO;
 
 namespace Anilinkz_Player.Classes
 {
@@ -31,6 +33,7 @@ namespace Anilinkz_Player.Classes
         /// </summary>
         static public void GetData(int count)
         {
+
             for (int i = 0; i < count; i++)
             {
                 if (driver == null)
@@ -52,13 +55,14 @@ namespace Anilinkz_Player.Classes
                 var doc = driver.Divs(By.Id("Videoads"))[0];
                 string tempHTML = doc.InnerHtml;
                 string videoUrlFormated = HTMLShredder(tempHTML);
+                DataHold.VideoList.Enqueue(videoUrlFormated);
                 if (!started)
                 {
                     started = true;
                     //The source will need to be determined before setting the player
-                    Player.setPlayer(Player.sources.ArkVid, videoUrlFormated);
+                    Player.setPlayer(Player.sources.ArkVid);
                 }
-                DataHold.VideoList.Enqueue(videoUrlFormated);
+                
                 episodenumber++;
             }
         }
@@ -73,6 +77,8 @@ namespace Anilinkz_Player.Classes
             string videoUrlFormated = videoUrl.Split(new string[] { "\"" }, StringSplitOptions.RemoveEmptyEntries)[0];
             return "http://" + videoUrlFormated;
         }
+
+        
         
     }
     

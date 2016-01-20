@@ -10,21 +10,26 @@ namespace Anilinkz_Player.Classes
     static class Player
     {
         static ChromeDriver player = null;
+        static bool autoPlay = false;
         public enum sources
         {
             ArkVid
         }
 
-        static public void setPlayer(sources source, string URL)
+        static public void setPlayer(sources source)
         {
-            switch(source)
+            do
             {
-                case sources.ArkVid:
-                    new Sources.ArkVid(player, URL);
-                    break;
-                default:
-                    break;
+                switch (source)
+                {
+                    case sources.ArkVid:
+                        new Sources.ArkVid(player, DataHold.VideoList.Dequeue());
+                        break;
+                    default:
+                        break;
+                }
             }
+            while (autoPlay);
             
         }
 
