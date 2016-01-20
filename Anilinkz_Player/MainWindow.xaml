@@ -11,6 +11,11 @@
         <Image x:Name="image" HorizontalAlignment="Left" Height="94" Margin="92,10,0,0" VerticalAlignment="Top" Width="313" Source="Resources/aniv5logo.png"/>
         <CheckBox x:Name="CBAutoPlay" Content=" Auto Play Episodes" HorizontalAlignment="Left" Margin="10,109,0,0" VerticalAlignment="Top" Width="128"/>
         <Button x:Name="BTNstart" Content="Start" HorizontalAlignment="Left" Margin="432,293,0,0" VerticalAlignment="Top" Width="75" Click="BTNstart_Click"/>
-        <ComboBox x:Name="cbAnime" HorizontalAlignment="Left" Margin="223,109,0,0" VerticalAlignment="Top" Width="284"/>
+        <ComboBox x:Name="cbAnime" HorizontalAlignment="Left" Margin="223,109,0,0" VerticalAlignment="Top" Width="284" SelectionChanged="cbAnime_SelectionChanged"/>
+        <ComboBox x:Name="cbPriority1" HorizontalAlignment="Left" Margin="359,135,0,0" VerticalAlignment="Top" Width="148" Visibility="Hidden" SelectionChanged="Priority_SelectionChanged"/>
+        <ComboBox x:Name="cbPriority2" HorizontalAlignment="Left" Margin="359,161,0,0" VerticalAlignment="Top" Width="148" Visibility="Hidden" SelectionChanged="Priority_SelectionChanged"/>
+        <ComboBox x:Name="cbPriority3" HorizontalAlignment="Left" Margin="359,187,0,0" VerticalAlignment="Top" Width="148" Visibility="Hidden" SelectionChanged="Priority_SelectionChanged"/>
+        <ComboBox x:Name="cbPriority4" HorizontalAlignment="Left" Margin="359,213,0,0" VerticalAlignment="Top" Width="148" Visibility="Hidden" SelectionChanged="Priority_SelectionChanged"/>
+        <ComboBox x:Name="cbPriority5" HorizontalAlignment="Left" Margin="359,239,0,0" VerticalAlignment="Top" Width="148" Visibility="Hidden" SelectionChanged="Priority_SelectionChanged"/>
     </Grid>
 </Window>
