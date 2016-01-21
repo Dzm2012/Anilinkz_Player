@@ -13,7 +13,7 @@ namespace Anilinkz_Player
     /// </summary>
     public partial class MainWindow : Window
     {
-
+        string episodeURL = "";
         public MainWindow()
         {
             InitializeComponent();
@@ -104,6 +104,7 @@ namespace Anilinkz_Player
 
 
                 urlAddress = "http://anilinkz.tv" + complete;
+                episodeURL = "http://anilinkz.tv" + front.Split(new string[] { "href=\"" }, StringSplitOptions.RemoveEmptyEntries)[1] + "-episode-";
                 data = "";
 
                 request = (HttpWebRequest)WebRequest.Create(urlAddress);
@@ -140,7 +141,19 @@ namespace Anilinkz_Player
 
         private void BTNstart_Click(object sender, RoutedEventArgs e)
         {
-            Classes.Page.GetData(10);
+            List<string> priorityOrder = new List<string>();
+            if(cbPriority1.SelectedValue!=null && cbPriority1.SelectedValue.ToString() != "")
+                priorityOrder.Add(cbPriority1.SelectedValue.ToString());
+            if (cbPriority2.SelectedValue != null && cbPriority2.SelectedValue.ToString() != "")
+                priorityOrder.Add(cbPriority2.SelectedValue.ToString());
+            if (cbPriority3.SelectedValue != null && cbPriority3.SelectedValue.ToString() != "")
+                priorityOrder.Add(cbPriority3.SelectedValue.ToString());
+            if (cbPriority4.SelectedValue != null && cbPriority4.SelectedValue.ToString() != "")
+                priorityOrder.Add(cbPriority4.SelectedValue.ToString());
+            if (cbPriority5.SelectedValue != null && cbPriority5.SelectedValue.ToString() != "")
+                priorityOrder.Add(cbPriority5.SelectedValue.ToString());
+
+            Classes.Page.GetData(10, 10, episodeURL, priorityOrder);
         }
 
         private void cbAnime_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
@@ -171,18 +184,57 @@ namespace Anilinkz_Player
         private void Priority_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             List<ComboBox> cbList = new List<ComboBox>();
-            sender
-            if (cbPriority1.Visibility != Visibility.Hidden && ((ComboBox)sender) != cbPriority1)
+            if(cbPriority1.Items.Count>0)
                 cbList.Add(cbPriority1);
-            else if (cbPriority2.Visibility != Visibility.Hidden && sender != cbPriority2)
+            if (cbPriority2.Items.Count > 0)
                 cbList.Add(cbPriority2);
-            else if (cbPriority3.Visibility != Visibility.Hidden && sender != cbPriority3)
+            if (cbPriority3.Items.Count > 0)
                 cbList.Add(cbPriority3);
-            else if (cbPriority4.Visibility != Visibility.Hidden && sender != cbPriority4)
+            if (cbPriority4.Items.Count > 0)
                 cbList.Add(cbPriority4);
-            else if (cbPriority5.Visibility != Visibility.Hidden && sender != cbPriority5)
+            if (cbPriority5.Items.Count > 0)
                 cbList.Add(cbPriority5);
-            
+
+            ComboBox Changed = new ComboBox();
+
+            switch (((ComboBox)sender).Name)
+            {
+                case "cbPriority1":
+                    cbList.Remove(cbPriority1);
+                    Changed = cbPriority1;
+                    break;
+                case "cbPriority2":
+                    cbList.Remove(cbPriority2);
+                    Changed = cbPriority2;
+                    break;
+                case "cbPriority3":
+                    cbList.Remove(cbPriority3);
+                    Changed = cbPriority3;
+                    break;
+                case "cbPriority4":
+                    cbList.Remove(cbPriority4);
+                    Changed = cbPriority4;
+                    break;
+                case "cbPriority5":
+                    cbList.Remove(cbPriority5);
+                    Changed = cbPriority5;
+                    break;
+            }
+
+            setPrioritys(cbList, Changed);
+        }
+        private void setPrioritys(List<ComboBox> Boxes, ComboBox changed)
+        {
+            ComboBox needsToChange = new ComboBox();
+            foreach (ComboBox cb in Boxes)
+            {
+                if(cb.SelectedValue == changed.SelectedValue)
+                {
+                    //needsToChange = cb;
+                    cb.SelectedValue = "";
+                    break;
+                }
+            }
         }
     }
 }

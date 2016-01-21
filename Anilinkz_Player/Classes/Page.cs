@@ -23,29 +23,27 @@ namespace Anilinkz_Player.Classes
     {
         static ChromeDriver driver = null;
         
-        static int episodenumber = 1;
-        static string URL_TEST = "http://anilinkz.tv/dragonball-episode-";
         static string nextURL = null;
         static bool started = false;
         /// <summary>
         /// This method goes to the AniLinkz url and gets the Video div then passes the data inside the div to the shreder
         /// Then it sets the "Player" browser with the source type and url
         /// </summary>
-        static public void GetData(int count)
+        static public void GetData(int episodeCount,int episodeNumber, string url, List<string> sourcePriority)
         {
-
-            for (int i = 0; i < count; i++)
+            for (int i = 0; i < episodeCount; i++)
             {
                 if (driver == null)
                 {
                     driver = new ChromeDriver();
 
                     //This code moves the "Working window" off the monitor comment out thisline if your confused what its doing
-                    driver.Manage().Window.Position = new System.Drawing.Point(-2000, 0);
+                    driver.Manage().Window.Position = new System.Drawing.Point(0, 0);
                 }
 
                 //Sets the url and adds the video number (this will need to be changed to accomidate a source in the URL)
-                driver.Navigate().GoToUrl(URL_TEST + episodenumber.ToString());
+                string urlFormated = url + episodeNumber.ToString() + GetSourceTag(url + episodeNumber.ToString(), sourcePriority);
+                driver.Navigate().GoToUrl(urlFormated);
 
                 //This looks for the video div, so far it looks like all the divs are named the same but they may not be for different sources
                 //If they are not this should be moved into the corrisponding source's class
@@ -62,9 +60,50 @@ namespace Anilinkz_Player.Classes
                     //The source will need to be determined before setting the player
                     Player.setPlayer(Player.sources.ArkVid);
                 }
-                
-                episodenumber++;
+
+                episodeNumber++;
             }
+        }
+
+        static public string GetSourceTag(string url, List<string> sourcePriority)
+        {
+            string data = "";
+
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                Stream receiveStream = response.GetResponseStream();
+                StreamReader readStream = null;
+                if (response.CharacterSet == null)
+                    readStream = new StreamReader(receiveStream);
+                else
+                    readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                data = readStream.ReadToEnd();
+                response.Close();
+                readStream.Close();
+            }
+            string setter = "";
+            foreach (string priority in sourcePriority)
+            {
+                if (data.Split(new string[] { priority }, StringSplitOptions.RemoveEmptyEntries).Length > 1)
+                {
+                    try {
+                        string build = data.Split(new string[] { priority }, StringSplitOptions.RemoveEmptyEntries)[1];
+                        build = build.Split(new string[] { "href=\"" }, StringSplitOptions.RemoveEmptyEntries).Last();
+                        build = build.Split('"')[0].Split('?')[1];
+                        setter = build;
+                    }
+                    catch
+                    {
+
+                    }
+                    break;
+                }
+            }
+            if (setter != "")
+                setter = "?" + setter;
+            return setter;
         }
 
         /// <summary>
