@@ -152,7 +152,8 @@ namespace Anilinkz_Player
                 priorityOrder.Add(cbPriority4.SelectedValue.ToString());
             if (cbPriority5.SelectedValue != null && cbPriority5.SelectedValue.ToString() != "")
                 priorityOrder.Add(cbPriority5.SelectedValue.ToString());
-
+            foreach (string unsupportedSource in Classes.DataHold.UnsupportedSources)
+                priorityOrder.Remove(unsupportedSource);
             Classes.Page.GetData(10, 10, episodeURL, priorityOrder);
         }
 

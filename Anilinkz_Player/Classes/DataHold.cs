@@ -13,5 +13,6 @@ namespace Anilinkz_Player.Classes
     {
         static public Queue<string> VideoList = new Queue<string>();
         static public Dictionary<string,string> AnimeList = new Dictionary<string, string>();
+        static public List<string> UnsupportedSources = new List<string>() { "v44" };
     }
 }

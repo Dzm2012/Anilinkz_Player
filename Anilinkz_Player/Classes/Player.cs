@@ -13,24 +13,23 @@ namespace Anilinkz_Player.Classes
         static bool autoPlay = false;
         public enum sources
         {
-            ArkVid
+            ArkVid,
+            yUp
         }
 
         static public void setPlayer(sources source)
         {
-            do
+            switch (source)
             {
-                switch (source)
-                {
-                    case sources.ArkVid:
-                        new Sources.ArkVid(player, DataHold.VideoList.Dequeue());
-                        break;
-                    default:
-                        break;
-                }
+                case sources.ArkVid:
+                    new Sources.ArkVid(player, DataHold.VideoList.Dequeue());
+                    break;
+                case sources.yUp:
+                    new Sources.yUp(player, DataHold.VideoList.Dequeue());
+                    break;
+                default:
+                    break;
             }
-            while (autoPlay);
-            
         }
 
     }

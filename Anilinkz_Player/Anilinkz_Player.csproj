@@ -99,6 +99,7 @@
     <Compile Include="Classes\Player.cs" />
     <Compile Include="Classes\Sources\ArkVid.cs" />
     <Compile Include="Classes\Sources\Source.cs" />
+    <Compile Include="Classes\Sources\yUp.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
